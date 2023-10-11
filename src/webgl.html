@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>TurboTouch predictor interactive demo</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="style.css" />
+      <script src="mainwebgl.js"></script>
+   </head>
+   <body>
+      <div id="instructions">This demo compares a simple linear predictor to the TurboTouch predictor, for different amounts of latency. The red line corresponds to the prediction. The TurboTouch predictor has been configured with parameters that work best with an iPad Pro and that may not be optimal for your device. Tuning the TurboTouch predictor for your application is described in the associated research paper. Please refer to <a href="http://ns.inria.fr/mjolnir/lagmeter/">these projects</a> to measure the end-to-end latency of your device.</div>
+      <b>Predictor</b> 
+      <input type="radio" id="linear" name="predictors" value="linear">
+      <label for="linear">Linear</label>
+      <input type="radio" id="ttp" name="predictors" value="TTP" checked>
+      <label for="ttp">TurboTouch</label>
+
+      <b>Latency compensated (ms)</b>
+      <input type="radio" id="latcomp0" name="latcomp" value="0" checked>
+      <label for="latcomp0">0</label>
+      <input type="radio" id="latcomp16" name="latcomp" value="16">
+      <label for="latcomp16">16</label>
+      <input type="radio" id="latcomp32" name="latcomp" value="32">
+      <label for="latcomp32">32</label>
+      <input type="radio" id="latcomp48" name="latcomp" value="48">
+      <label for="latcomp48">48</label>
+      <input type="radio" id="latcomp64" name="latcomp" value="64">
+      <label for="latcomp64">64</label>
+
+      <a href="index.html">Test using Canvas</a>
+
+      <button id="instBut">Hide instructions</button>
+      <div id="info"></div>
+
+      <!-- <button id="clearbutton">Clear</button> -->
+      <div id="WebGL-output"></div>
+      <!-- <canvas id="canvas"></canvas> -->
+   </body>
+</html>

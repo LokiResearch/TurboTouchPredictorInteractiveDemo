@@ -1,0 +1,21 @@
+{
+  "name": "turbotouchpredictorinteractivedemo",
+  "version": "1.0.0",
+  "description": "TurboTouch Predictor Interactive Demo",
+  "scripts": {
+    "watch": "webpack watch",
+    "build": "webpack"
+  },
+  "author": "Géry Casiez",
+  "license": "",
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "1eurofilter": "^1.2.1",
+    "three": "^0.157.0",
+    "turbotouchpredictor": "^0.0.2"
+  }
+}
