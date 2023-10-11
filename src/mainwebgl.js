@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
    var last_ts = new Date().getTime();
    var filterfps = new OneEuroFilter(60, 1, 0);
    var predictionTime = 0;
+   var fpsfilt = 0;
+   var fps = 0;
 
    // Get the position of a touch relative to the canvas
    function getTouchPos(canvasDom, touchEvent) {
@@ -154,44 +156,47 @@ document.addEventListener("DOMContentLoaded", function() {
    };
 
    function redraw () {
-    var ts = new Date().getTime();
-    var fps = 1000/(ts-last_ts);
-    last_ts = ts;
-    var fpsfilt = filterfps.filter(fps);
-
-    while(scene.children.length > 0){ 
-        scene.remove(scene.children[0]); 
-    }
-
-    if (state == "UP") {
-
-    } else {
-      var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
-      var geometry = new THREE.BufferGeometry();
-      var i;
-      var vertices = [];
-      for (i = 1; i < points.length; i++) {    
-         vertices.push(points[i-1].x, points[i-1].y, 0);
-         vertices.push(points[i].x, points[i].y, 0);
+      var ts = new Date().getTime();
+      if (ts != last_ts) {
+         fps = 1000/(ts-last_ts);
+         fpsfilt = filterfps.filter(fps);
       }
 
-      geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
-      var line = new THREE.Line( geometry, material );
-      scene.add( line );
+      last_ts = ts;
 
-      vertices = [];
-      material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
-      geometry = new THREE.BufferGeometry();
-      vertices.push(points[points.length-1].x, points[points.length-1].y, 0);
-      vertices.push(predictedPoint.x, predictedPoint.y, 0);
-      geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
-      line = new THREE.Line( geometry, material );
-      scene.add( line );
-    }
+      while(scene.children.length > 0){ 
+         scene.remove(scene.children[0]); 
+      }
 
-    renderer.render(scene, camera);
-    var txt = fps.toFixed(0) + " fps - prediction computation time: " + predictionTime + " ms";
-    document.getElementById('info').textContent = txt;
+      if (state == "UP") {
+
+      } else {
+         var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
+         var geometry = new THREE.BufferGeometry();
+         var i;
+         var vertices = [];
+         for (i = 1; i < points.length; i++) {    
+            vertices.push(points[i-1].x, points[i-1].y, 0);
+            vertices.push(points[i].x, points[i].y, 0);
+         }
+
+         geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
+         var line = new THREE.Line( geometry, material );
+         scene.add( line );
+
+         vertices = [];
+         material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+         geometry = new THREE.BufferGeometry();
+         vertices.push(points[points.length-1].x, points[points.length-1].y, 0);
+         vertices.push(predictedPoint.x, predictedPoint.y, 0);
+         geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
+         line = new THREE.Line( geometry, material );
+         scene.add( line );
+      }
+
+      renderer.render(scene, camera);
+      var txt = fps.toFixed(0) + " fps - prediction computation time: " + predictionTime + " ms";
+      document.getElementById('info').textContent = txt;
 
    }
 

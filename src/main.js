@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
    var last_ts = new Date().getTime();
    var filterfps = new OneEuroFilter(60, 1, 0);
    var predictionTime = 0;
+   var fpsfilt = 0;
+   var fps = 0;
 
    // Get the position of a touch relative to the canvas
    function getTouchPos(canvasDom, touchEvent) {
@@ -140,9 +142,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
    function redraw () {
       var ts = new Date().getTime();
-      var fps = 1000/(ts-last_ts);
+      if (ts != last_ts) {
+         fps = 1000/(ts-last_ts);
+         fpsfilt = filterfps.filter(fps);
+      }
+      
       last_ts = ts;
-      var fpsfilt = filterfps.filter(fps);
 
       clearScreen();
       if (state == "UP") {
