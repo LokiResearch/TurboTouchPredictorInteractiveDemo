@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    container: npm
+    container: node
 
     steps:
     - uses: actions/checkout@v3
