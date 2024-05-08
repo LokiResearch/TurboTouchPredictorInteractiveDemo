@@ -15,9 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: install dependancies
-      run: npm install
-    - name: build
-      run: npm run build
+      run: |
+        npm install
+        npm run build
     - name: Archive built files
       uses: actions/upload-artifact@v4
       with:

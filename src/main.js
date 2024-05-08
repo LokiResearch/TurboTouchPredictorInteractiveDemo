@@ -5,7 +5,7 @@
  *
  */
 
-import { TurboTouchPredictor } from 'TurboTouchPredictor'
+import { TurboTouchPredictor } from 'turbotouchpredictor'
 import { OneEuroFilter } from '1eurofilter'
 import { ConstantSpeedPredictor } from './ConstantSpeedPredictor.js'
 
