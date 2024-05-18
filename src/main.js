@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
    // Set up touch events for mobile, etc
    canvas.addEventListener("touchstart", function (e) {
+     e.preventDefault();
      //mousePos = getTouchPos(canvas, e);
      var touch = e.touches[0];
      var mouseEvent = new MouseEvent("mousedown", {
@@ -34,10 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
      canvas.dispatchEvent(mouseEvent);
    }, false);
    canvas.addEventListener("touchend", function (e) {
+      e.preventDefault();
      var mouseEvent = new MouseEvent("mouseup", {});
      canvas.dispatchEvent(mouseEvent);
    }, false);
    canvas.addEventListener("touchmove", function (e) {
+      e.preventDefault();
      var touch = e.touches[0];
      var mouseEvent = new MouseEvent("mousemove", {
        clientX: touch.clientX,
@@ -115,12 +118,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
    // register mouse event handlers
    canvas.onmousedown = function(e){
+      e.preventDefault();
       state = "DOWN";
       points.push({x: e.offsetX, y: e.offsetY, t: e.timeStamp * timescale});
       predictedPoint = predictor.predict({x: e.offsetX, y: e.offsetY, t: e.timeStamp * timescale, state: "Interacting"});
    };
    
    canvas.onmouseup = function(e){
+      e.preventDefault();
       state = "UP";
       clearScreen();
       predictedPoint = predictor.predict({x: e.offsetX, y: e.offsetY, t: e.timeStamp * timescale, state: "NotInteracting"});
@@ -130,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
    };
 
    canvas.onmousemove = function(e) {
+      e.preventDefault();
       if (state == "DOWN") {
          points.push({x: e.offsetX, y: e.offsetY, t: e.timeStamp * timescale});
          var t1 = new Date().getTime();
